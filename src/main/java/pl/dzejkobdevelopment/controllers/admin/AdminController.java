@@ -1,6 +1,7 @@
 package pl.dzejkobdevelopment.controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import pl.dzejkobdevelopment.database.DatabaseManager;
 import pl.dzejkobdevelopment.entities.Article;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Jakub Michałowski on 27.10.2017.
@@ -38,5 +40,19 @@ public class AdminController {
         }
         db.addArticle(article);
         return "redirect:/admin/add?isAdded=true";
+    }
+
+    @GetMapping("/admin/articlelist")
+    public String showList(@RequestParam(value = "page", required = false) String stringPage, Model model){
+        int page;
+        try{
+            page = Integer.parseInt(stringPage);
+        }catch (NumberFormatException e){
+            page = 0;
+        }
+        List articles = db.getArticlesList(new PageRequest(page,10));
+        model.addAttribute("articles", articles);
+
+        return "admin/list";
     }
 }

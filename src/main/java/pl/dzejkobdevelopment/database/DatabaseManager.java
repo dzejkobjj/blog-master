@@ -2,6 +2,7 @@ package pl.dzejkobdevelopment.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.dzejkobdevelopment.database.repositories.ArticleRepo;
 import pl.dzejkobdevelopment.database.repositories.CommentRepo;
@@ -52,6 +53,10 @@ public class DatabaseManager {
 
     public Article getArticle(long id){
         return articleRepo.findOne(id);
+    }
+
+    public List<Article> getArticlesList(Pageable pageable){
+        return  articleRepo.findAllByOrderByIdDesc(pageable);
     }
 
 

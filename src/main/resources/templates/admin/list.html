@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Template Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
+
+    <script language="JavaScript" type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/popper.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row top"><h1>BlogMaster Admin Panel</h1></div>
+    <div class="row">
+        <div class="col-xl-2 nav-column">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">WRÓC DO BLOGA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/add">Dodaj artykuł</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/articlelist">Lista artykułów</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xl main-column">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="article : ${articles}">
+                        <th scope="row" th:text="${article.id}">1</th>
+                        <td th:text="${article.title}">Title</td>
+                        <td th:text="${article.author}">Author</td>
+                        <td th:text="${article.date}">Date</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
