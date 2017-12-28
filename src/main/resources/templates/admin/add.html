@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Template Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
+    <link href="../../css/froala_style.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/jquery.tagsinput.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/image-picker.css" rel="stylesheet" type="text/css" />
+
+    <script language="JavaScript" type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/popper.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/jquery.tagsinput.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/script.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/image-picker.min.js"></script>
+
+    <!-- Include external CSS. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css" />
+
+    <!-- Include Editor style. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.1/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.1/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+    <!-- Include external JS libs. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+
+    <!-- Include Editor JS files. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.1/js/froala_editor.pkgd.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/file.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/messages_pl.js"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row top"><h1>BlogMaster Admin Panel</h1></div>
+    <div class="row">
+        <div class="col-xl-2 nav-column">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">WRÓC DO BLOGA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/add">Dodaj artykuł</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xl main-column">
+            <div class="row">
+                <div class="col-xl-9">
+                    <div th:if="${isAdded} == 'true'" class="alert alert-success" role="alert">
+                        Dodano artykuł.
+                    </div>
+                    <div class="page-title">
+                        <h2>Dodaj artykuł</h2>
+                    </div>
+                    <!--TODO: jquery froala validation-->
+                    <!--TODO: image selector validation-->
+                    <form action="#" id="articleForm" th:action="@{/admin/add}" th:object="${article}" method="post">
+                        <div th:if="${#fields.hasErrors('articleText')}" th:errors="*{articleText}" class="alert alert-danger" role="alert">
+                            Text error.
+                        </div>
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="alert alert-danger" role="alert">
+                            Tittle error.
+                        </div>
+                        <div th:if="${#fields.hasErrors('articleDescription')}" th:errors="*{articleDescription}" class="alert alert-danger" role="alert">
+                           Short description error.
+                        </div>
+                        <div th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="alert alert-danger" role="alert">
+                            Image url error.
+                        </div>
+
+                        <textarea id="froala-editor"  th:field="*{articleText}" required="required"></textarea>
+                        <div class="form-group row padding-15">
+                            <label for="articleTitle" class="col-sm-2 col-form-label">Tytuł: </label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{title}" class="form-control" name="articleTitle" id="articleTitle" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tags" class="col-sm-2 col-form-label">Tagi: </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="tags" id="tags"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="articleDescription" class="col-sm-2 col-form-label">Streszczenie: </label>
+                            <div class="col-sm-10">
+                                <textarea th:field="*{articleDescription}" class="form-control" name="articleDescription" id="articleDescription" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="image-select-div">
+                        <div class="form-group row">
+                            <label class="custom-control custom-radio">
+                                <input id="upload" name="radio" type="radio" class="custom-control-input" checked="checked" />
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Załaduj obrazek...</span>
+                            </label>
+                            <label class="custom-control custom-radio">
+                                <input id="flickr" name="radio" type="radio" class="custom-control-input" />
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">... lub wybierz coś z flickr'a</span>
+                            </label>
+                        </div>
+                            <div id="upload-selector-div">
+                                <label class="custom-file">
+                                    <input type="file" id="file2" class="custom-file-input" />
+                                    <span class="custom-file-control"></span>
+                                </label>
+                            </div>
+                            <div id="flickr-selector-div" class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group mx-sm-3">
+                                        <label for="search-query" class="sr-only">Poszukaj na flickr'u interesujących zdjęć: </label>
+                                        <input type="text" class="form-control" id="search-query"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button id="get-images-button" type="button" class="btn btn-primary">Szukaj!</button>
+                                </div>
+                                <div id="images"></div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Dodaj!</button>
+                    </form>
+
+                    <script>
+                        $(function() { $('#froala-editor').froalaEditor({
+                                fileUploadURL: '/upload_file',
+                                heightMin: 300
+                            })
+                        }
+
+                        );
+                        $("#articleForm").validate({
+                            errorClass: "is-invalid",
+                            validClass: "is-valid"
+                        });
+                        $('#tags').tagsInput({
+                            defaultText:''
+                        });
+                    </script>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

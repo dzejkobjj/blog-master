@@ -1,0 +1,37 @@
+body{
+    background-color: #eee;
+}
+.top{
+    background-color: #3b8beb;
+    padding: 15px;
+    color: white;
+}
+.nav-column{
+    background-color: white;
+    height: 100vh;
+    padding-top: 15px;
+}
+.main-column{
+    padding-top: 15px;
+}
+.page-title{
+    padding-bottom: 15px;
+}
+
+.field-error{
+    display: inline !important;
+}
+.padding-15{
+    padding-top: 15px;
+}
+.is-invalid{
+    color: red !important;
+}
+
+.image-select-div{
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}

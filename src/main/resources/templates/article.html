@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${article.title}">Template Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+
+    <script language="JavaScript" type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/popper.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row top top-banner top-background">
+        <div class="col-sm-9">
+            <h1 th:text="${bannerTitle}"></h1>
+            <h5 th:text="${bannerSubtitle}"></h5>
+        </div>
+        <div class="col-sm">Nie zalogowano</div>
+    </div>
+    <div class="row row-margin navbar-style navbar-background">
+        <div class="col-xl">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/admin/add">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row row-margin">
+        <div class="col-xl article-col-padding">
+            <div class="article">
+                <div class="article-image">
+                    <img th:src="${article.imageUrl}"/>
+                    <h1><span th:text="${article.title}">Tytuł</span></h1>
+                </div>
+                <div class="row article-details">
+                    <div class="col-sm">AUTOR:<br/><span th:text="${article.author}">Jan Kowalski</span></div>
+                    <div class="col-sm">KOMENTARZE:<br/><span th:text="${article.numberOfComments}">10</span></div>
+                    <div class="col-sm">DATA:<br/><span th:text="${article.date}">17:40 01-01-2017</span></div>
+                </div>
+                <div class="row row-margin">
+                    <div class="col-sm">
+                        <div class="article-text">
+                            <div th:utext="${article.articleText}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3">
+            No elo
+        </div>
+    </div>
+</div>
+</body>
+</html>
